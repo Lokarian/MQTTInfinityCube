@@ -1,0 +1,22 @@
+#ifndef config_h
+#define config_h
+
+const char* USER_SSID = "abc";
+const char* USER_WIFI_PASSWORD = "secretPW";
+const char* MQTT_BROKER = "broker.hivemq.com";
+const char* MQTT_USERNAME = "user";
+const char* MQTT_PASSWORD = "pass";
+const char* MQTT_CLIENT_NAME = "user";
+const int MQTT_PORT = 1883;
+
+//channel:
+const char* CHANNEL_AVAILABLITY = "username/cube/availability";
+const char* CHANNEL_MQTT_LIGHT_COMMANDS = "username/cube/set";
+const char* CHANNEL_MQTT_LIGHT_STATUS = "username/cube/status";
+const char* CHANNEL_HEARTBEAT_RX = "username/heart/send";
+const char* CHANNEL_HEARTBEAT_TX = "username/heart/receive";
+
+
+const char* CHANNEL_HEARTBEAT_MESSAGE = "boop";
+
+#endif
