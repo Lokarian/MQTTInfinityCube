@@ -251,6 +251,12 @@ void handleMessage(const String & payload){
   publishStateChange();
 }
 ```
+## Home assistant integration
+For adding MQTT Lights to your existing HA instance see [https://www.home-assistant.io/integrations/light.mqtt/](https://www.home-assistant.io/integrations/light.mqtt/).  
+The control Panel will then look like this  
+![image](https://user-images.githubusercontent.com/41264811/173058881-8736d1a5-a730-4b33-864d-283e0f20d41b.png).
+
+
 ## Inter device communication
 ![](https://i.imgur.com/jyDkuXe.jpg)
 For the birthday of my girlfriend i gifted her a small alternative Version in the form of a heart.  
