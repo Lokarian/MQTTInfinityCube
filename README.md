@@ -251,3 +251,40 @@ void handleMessage(const String & payload){
   publishStateChange();
 }
 ```
+## Inter device communication
+![](https://i.imgur.com/jyDkuXe.jpg)
+For the birthday of my girlfriend i gifted her a small alternative Version in the form of a heart.  
+It also has different lighting modes, but they dont work on the same mechanism as the cube with calculating distances.
+The important thing is, that it has a button which can make my cube light up, and i can make her heart light up.  
+I'm not gonna go into detail on how i built her device in this repository, but this may follow one day. I also know that my implementation of the light up mechanism in the version of the cube is not the best, but i have not found the time and muse since. It is eg not possible for the cube to receive the light up message while it is on.  
+If you feel like helping out, feel free to create a PR.
+
+### Software
+The implementation of the light up mechanism is quite simple, the communication is also going over MQTT. The script will listen on the topic defined in `CHANNEL_HEARTBEAT_RX ` and then change state to "heart".
+In the heart state the leds will slowly light up and then go out again, once this is over the state is set back to off mode.  
+The light up works by defining a time in `messageLength` and a hue value in `heartHue`.  
+The light will then go up and down in the form of a sinus wave.
+The code looks like this:
+```
+if(state=="heart"){
+    if(millis()-messageStartMillis>messageLength){
+      state="OFF";  
+      FastLED.setBrightness(0);
+    }  
+    float percentDone= ((float)(millis()-messageStartMillis))/((float)(messageLength));
+    percentDone*=2;
+    if(percentDone>1){
+      percentDone=-percentDone+2;
+    }
+    uint8_t unscaled =(uint8_t)(percentDone*255);
+    uint8_t scaled = scale8( unscaled, 200);
+    CHSV color= CHSV(heartHue,200,scaled);
+    FastLED.clear();
+    for(int i=0;i<NUM_LEDS;i++){
+      leds[i]=color;
+    }
+    FastLED.show();
+    
+  }
+```
+
